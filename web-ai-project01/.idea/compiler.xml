@@ -8,7 +8,6 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="maven-project01" />
-        <module name="jdbc-demo" />
         <module name="springboot-web-quickstart" />
       </profile>
       <profile name="Annotation profile for springboot-mybatis-quickstart" enabled="true">
@@ -18,11 +17,13 @@
         <processorPath useClasspath="false">
           <entry name="$PROJECT_DIR$/../../develop/apache-maven-3.9.4-bin/apache-maven-3.9.4/mvn_repo/org/projectlombok/lombok/1.18.30/lombok-1.18.30.jar" />
         </processorPath>
-        <module name="springboot-web-01" />
         <module name="springboot-mybatis-quickstart" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel target="21" />
+    <bytecodeTargetLevel target="21">
+      <module name="jdbc-demo" target="21" />
+      <module name="springboot-web-01" target="21" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
