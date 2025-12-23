@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itheima.mapper.UserMapper">
+
+    <!-- resultType：查询返回的单条记录所封装的类型 -->
+    <!-- 查询返回的单条记录往哪里封装，注意是单条，不是List<User>，而是User -->
+    <!-- id写方法名-->
+    <select id="findAll" resultType="com.itheima.pojo.User">
+        select * from user
+    </select>
+    <!-- 然后别忘了注释掉注解写成的Select语句，否则会冲突-->
+
+</mapper>
+<!-- 固定头信息约束 -->
+
+
+
