@@ -4,12 +4,12 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.itheima.mapper.EmpMapper;
 import com.itheima.pojo.Emp;
+import com.itheima.pojo.EmpQueryParam;
 import com.itheima.pojo.PageResult;
 import com.itheima.service.EmpService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -35,12 +35,12 @@ public class EmpServiceImpl implements EmpService {
 
 //    pageHelper
     @Override
-    public PageResult<Emp> page(Integer page, Integer pageSize, String name, Integer gender, LocalDate begin, LocalDate end) {
+    public PageResult<Emp> page(EmpQueryParam empQueryParam) {
         // 1、设置起始索引和每页记录数
-        PageHelper.startPage(page, pageSize);
+        PageHelper.startPage(empQueryParam.getPage(), empQueryParam.getPageSize());
 
         // 2、执行查询
-        List<Emp> empList = empMapper.list(name, gender, begin, end);
+        List<Emp> empList = empMapper.list(empQueryParam);
 
         // 3、封装PageResult返回给用户，但该方法需要两个参数，start和rows
         Page<Emp> p = (Page<Emp>) empList;    // PageHelper分页查询结果对象Page
