@@ -2,8 +2,8 @@ package com.itheima.mapper;
 
 import com.itheima.pojo.Emp;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
 
+import java.time.LocalDate;
 import java.util.List;
 
 // 员工数据操作
@@ -22,8 +22,16 @@ public interface EmpMapper {
     public List<Emp> list(Integer start, Integer pageSize); // 起始索引和每页展示的记录数*/
 
     // PageHelper分页插件
-    @Select("select e.*, d.name deptName from emp as e left join dept as d on e.dept_id = d.id order by e.update_time desc")
-    public List<Emp> list();
+   //  @Select("select e.*, d.name deptName from emp as e left join dept as d on e.dept_id = d.id order by e.update_time desc")
+    public List<Emp> list(String name, Integer gender, LocalDate begin, LocalDate end);
+
+    // 条件查询
+/*    select e.*, d.name deptName from emp e left join dept d on e.dept_id = d.id
+    where e.name like '%欣%' and e.gender = 1 and e.entry_date between '2010-01-01' and '2020-01-01'
+    order by e.update_time desc*/
+//    注解比较复杂的时候用XML映射文件
+
+
 
 
 }
