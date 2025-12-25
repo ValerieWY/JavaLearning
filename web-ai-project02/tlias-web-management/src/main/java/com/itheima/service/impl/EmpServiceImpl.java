@@ -3,14 +3,14 @@ package com.itheima.service.impl;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.itheima.mapper.EmpExprMapper;
+import com.itheima.mapper.EmpLogMapper;
 import com.itheima.mapper.EmpMapper;
-import com.itheima.pojo.Emp;
-import com.itheima.pojo.EmpExpr;
-import com.itheima.pojo.EmpQueryParam;
-import com.itheima.pojo.PageResult;
+import com.itheima.pojo.*;
+import com.itheima.service.EmpLogService;
 import com.itheima.service.EmpService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import java.time.LocalDateTime;
@@ -23,6 +23,11 @@ public class EmpServiceImpl implements EmpService {
     private EmpMapper empMapper;
     @Autowired
     private EmpExprMapper empExprMapper;
+
+    @Autowired
+    private EmpLogService empLogService;
+    @Autowired
+    private EmpLogMapper empLogMapper;
 
 
 /*    @Override
@@ -57,20 +62,32 @@ public class EmpServiceImpl implements EmpService {
         // long List<E> ，刚好符合PageResult需要的类型 Long 和 List<T>
     }
 
+    @Transactional  // 事务管理，默认抛出runtimeException时，才会回滚
     @Override
     public void save(Emp emp) {
-        emp.setCreateTime(LocalDateTime.now());
-        emp.setUpdateTime(LocalDateTime.now());
-        empMapper.insert(emp);
+        // ctrl+alt+t 调出包围方式，选择 try finally 代码块
+        try {
+            emp.setCreateTime(LocalDateTime.now());
+            emp.setUpdateTime(LocalDateTime.now());
+            empMapper.insert(emp);
 
-        // 工作经历
-        Integer empId = emp.getId() ;
-        List<EmpExpr> exprList = emp.getExprList();
-        // 工作经历可能为空
+//        int i = 1 / 0;
+
+            // 工作经历
+            Integer empId = emp.getId() ;
+            List<EmpExpr> exprList = emp.getExprList();
+            // 工作经历可能为空
 //        if(exprList != null) {
-        if(!CollectionUtils.isEmpty(exprList)) {
-            exprList.forEach(expr -> expr.setEmpId(empId));
-            empExprMapper.insertBatch(exprList);
+            if(!CollectionUtils.isEmpty(exprList)) {
+                exprList.forEach(expr -> expr.setEmpId(empId));
+                empExprMapper.insertBatch(exprList);
+            }
+        } finally {
+            // 即使在finally块中，如不单独给insertLog方法新建事务还是会被回滚
+            // 记录操作日志
+            EmpLog empLog = new EmpLog(null,LocalDateTime.now(),"新增员工:" + emp);
+            // 因为用户并没有请求这个方法，需要service自己去调用一下自己的方法，输出日志
+            empLogService.insertLog(empLog);
         }
 
     }
