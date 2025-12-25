@@ -2,14 +2,18 @@ package com.itheima.service.impl;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.itheima.mapper.EmpExprMapper;
 import com.itheima.mapper.EmpMapper;
 import com.itheima.pojo.Emp;
+import com.itheima.pojo.EmpExpr;
 import com.itheima.pojo.EmpQueryParam;
 import com.itheima.pojo.PageResult;
 import com.itheima.service.EmpService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -17,6 +21,9 @@ public class EmpServiceImpl implements EmpService {
 
     @Autowired
     private EmpMapper empMapper;
+    @Autowired
+    private EmpExprMapper empExprMapper;
+
 
 /*    @Override
     public PageResult<Emp> page(Integer page, Integer pageSize) {
@@ -48,6 +55,24 @@ public class EmpServiceImpl implements EmpService {
 
         return new PageResult<Emp>(p.getTotal(), p.getResult());
         // long List<E> ，刚好符合PageResult需要的类型 Long 和 List<T>
+    }
+
+    @Override
+    public void save(Emp emp) {
+        emp.setCreateTime(LocalDateTime.now());
+        emp.setUpdateTime(LocalDateTime.now());
+        empMapper.insert(emp);
+
+        // 工作经历
+        Integer empId = emp.getId() ;
+        List<EmpExpr> exprList = emp.getExprList();
+        // 工作经历可能为空
+//        if(exprList != null) {
+        if(!CollectionUtils.isEmpty(exprList)) {
+            exprList.forEach(expr -> expr.setEmpId(empId));
+            empExprMapper.insertBatch(exprList);
+        }
+
     }
 
 }

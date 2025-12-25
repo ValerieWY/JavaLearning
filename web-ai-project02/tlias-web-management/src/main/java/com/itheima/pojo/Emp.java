@@ -4,6 +4,7 @@ import lombok.Data;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 public class Emp {
@@ -23,4 +24,8 @@ public class Emp {
 
     // 部门名称
     private String deptName;
+
+    // 工作经历
+    private List<EmpExpr> exprList;
+
 }

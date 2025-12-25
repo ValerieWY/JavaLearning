@@ -3,6 +3,7 @@ package com.itheima.mapper;
 import com.itheima.pojo.Emp;
 import com.itheima.pojo.EmpQueryParam;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Options;
 
 import java.util.List;
 
@@ -26,13 +27,15 @@ public interface EmpMapper {
     public List<Emp> list(EmpQueryParam empQueryParam);
 
 
+    // 获取到生成的主键 —— 主键返回
+    @Options(useGeneratedKeys = true, keyProperty = "id")
+    void insert(Emp emp);
+
+
     // 条件查询
 /*    select e.*, d.name deptName from emp e left join dept d on e.dept_id = d.id
     where e.name like '%欣%' and e.gender = 1 and e.entry_date between '2010-01-01' and '2020-01-01'
     order by e.update_time desc*/
 //    注解比较复杂的时候用XML映射文件
-
-
-
 
 }
