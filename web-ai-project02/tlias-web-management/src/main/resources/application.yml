@@ -25,3 +25,11 @@ mybatis:
 logging:
   level:
     org.springframework.jdbc.support.JdbcTransactionManager: debug
+
+
+# 阿里云OSS的信息
+aliyun:
+    oss:
+        endpoint: https://oss-cn-beijing.aliyuncs.com
+        bucketName: java-ai-v
+        region: cn-beijing
