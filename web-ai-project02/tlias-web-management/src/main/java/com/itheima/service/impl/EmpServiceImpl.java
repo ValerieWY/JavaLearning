@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -102,5 +103,23 @@ public class EmpServiceImpl implements EmpService {
     @Override
     public Emp getInfo(Integer id) {
         return empMapper.getById(id);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void update(Emp emp) {
+        // 1、更新基本信息
+        emp.setUpdateTime(LocalDateTime.now());
+        empMapper.updateById(emp);
+
+        // 2、更新工作经历（用户可能添加可能删除，都要写）
+        // 获取员工ID：不能直接写emp.getId()，因为前面定义批量删除方法时，这里的参数是个List<Integer>，要用Arrays.asList()转换成List<Integer>
+        empExprMapper.deleteByEmpIds(Arrays.asList(emp.getId())); // 删除工作经历
+        List<EmpExpr> exprList = emp.getExprList();     // 添加工作经历
+        if(!CollectionUtils.isEmpty(exprList)) {
+            exprList.forEach(expr -> expr.setEmpId(emp.getId()));
+            empExprMapper.insertBatch(exprList);
+        }
+
     }
 }
