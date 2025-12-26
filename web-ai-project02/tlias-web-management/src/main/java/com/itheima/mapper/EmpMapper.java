@@ -31,6 +31,10 @@ public interface EmpMapper {
     @Options(useGeneratedKeys = true, keyProperty = "id")
     void insert(Emp emp);
 
+    void deleteByIds(List<Integer> ids);
+
+    Emp getById(Integer id);
+
 
     // 条件查询
 /*    select e.*, d.name deptName from emp e left join dept d on e.dept_id = d.id

@@ -3,7 +3,6 @@ package com.itheima.service.impl;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.itheima.mapper.EmpExprMapper;
-import com.itheima.mapper.EmpLogMapper;
 import com.itheima.mapper.EmpMapper;
 import com.itheima.pojo.*;
 import com.itheima.service.EmpLogService;
@@ -26,8 +25,6 @@ public class EmpServiceImpl implements EmpService {
 
     @Autowired
     private EmpLogService empLogService;
-    @Autowired
-    private EmpLogMapper empLogMapper;
 
 
 /*    @Override
@@ -89,7 +86,21 @@ public class EmpServiceImpl implements EmpService {
             // 因为用户并没有请求这个方法，需要service自己去调用一下自己的方法，输出日志
             empLogService.insertLog(empLog);
         }
-
     }
 
+    @Override
+    // 两个操作要么同时成功要么同时失败，所以要加事务控制
+    @Transactional(rollbackFor = Exception.class)
+    public void delete(List<Integer> ids) {
+        // 1、删除基本信息
+        empMapper.deleteByIds(ids);
+
+        // 2、删除工作经历
+        empExprMapper.deleteByEmpIds(ids);
+    }
+
+    @Override
+    public Emp getInfo(Integer id) {
+        return empMapper.getById(id);
+    }
 }

@@ -11,4 +11,6 @@ import java.util.List;
 public interface EmpExprMapper {
 
     public void insertBatch(List<EmpExpr> exprList); // Changed from empExpr to empExprList
+
+    void deleteByEmpIds(List<Integer> empIds);
 }
