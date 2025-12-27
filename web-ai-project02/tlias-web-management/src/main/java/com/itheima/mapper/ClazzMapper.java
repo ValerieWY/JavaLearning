@@ -16,4 +16,6 @@ public interface ClazzMapper {
     // 获取到生成的主键 —— 主键返回
     @Options(useGeneratedKeys = true, keyProperty = "id")
     void insert(Clazz clazz);
+
+    Clazz getById(Integer id);
 }

@@ -46,4 +46,9 @@ public class ClazzServiceImpl implements ClazzService {
         clazz.setCreateTime(LocalDateTime.now());   // 新增的时候要设置createTime哦
         clazzMapper.insert(clazz);
     }
+
+    @Override
+    public Clazz getInfo(Integer id) {
+        return clazzMapper.getById(id);
+    }
 }

@@ -10,4 +10,6 @@ public interface ClazzService {
     void deleteById(Integer id);
 
     void save(Clazz clazz);
+
+    Clazz getInfo(Integer id);
 }

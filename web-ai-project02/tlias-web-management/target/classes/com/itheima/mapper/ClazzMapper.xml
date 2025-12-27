@@ -33,4 +33,7 @@
             </if>
         </where>order by c.update_time desc
     </select>
+    <select id="getById" resultType="com.itheima.pojo.Clazz">
+        select * from clazz c where c.id = #{id}
+    </select>
 </mapper>

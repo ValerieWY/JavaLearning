@@ -1,6 +1,7 @@
 package com.itheima.controller;
 
 
+import com.itheima.mapper.ClazzMapper;
 import com.itheima.pojo.Clazz;
 import com.itheima.pojo.ClazzQueryParam;
 import com.itheima.pojo.PageResult;
@@ -17,6 +18,9 @@ public class ClazzController {
 
     @Autowired
     private ClazzService clazzService;
+
+    @Autowired
+    private ClazzMapper clazzMapper;
 
     @GetMapping
     public Result list(ClazzQueryParam clazzQueryParam) {
@@ -37,6 +41,13 @@ public class ClazzController {
         log.info("添加班级，参数：{}", clazz);
         clazzService.save(clazz);
         return Result.success();
+    }
+
+    @GetMapping("/{id}")
+    public Result getInfo(@PathVariable Integer id) {
+        log.info("查询班级信息，id：{}", id);
+        Clazz clazz = clazzService.getInfo(id);
+        return Result.success(clazz);
     }
 
 }
