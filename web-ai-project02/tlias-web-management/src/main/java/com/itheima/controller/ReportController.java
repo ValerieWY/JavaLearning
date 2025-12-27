@@ -38,11 +38,18 @@ public class ReportController {
 
 //    班级人数统计
     @GetMapping("/studentCountData")
-    public Result getClazzStuData() {
+    public Result getStudentCountData() {
         log.info("班级人数统计");
-        ClassOption classOption = reportService.getClazzStuData();
+        ClassOption classOption = reportService.getStudentCountData();
         return Result.success(classOption);
     }
 
+    // 学员学历统计
+    @GetMapping("/studentDegreeData")
+    public Result getStudentDegreeData() {
+        log.info("学员学历统计");
+        List<Map<String,Object>> degreeList = reportService.getStudentDegreeData();
+        return Result.success(degreeList);
+    }
 
 }

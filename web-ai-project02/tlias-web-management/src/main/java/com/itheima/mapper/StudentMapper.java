@@ -12,9 +12,6 @@ import java.util.Map;
 @Mapper
 public interface StudentMapper {
 
-    @MapKey("name")
-    List<Map<String, Object>> countClazzStuData();
-
     List<Student> list(StudentQueryParam studentQueryParam);
 
     void deleteByIds(List<Integer> ids);
@@ -27,4 +24,10 @@ public interface StudentMapper {
     void updateById(Student student);
 
     void updateViolation(Integer id, Short score);
+
+    @MapKey("name")
+    List<Map<String, Object>> countStudentDegreeData();
+
+    @MapKey("pos")
+    List<Map<String, Object>> countStudentCountData();
 }

@@ -40,11 +40,17 @@ public class ReportServiceImpl implements ReportService {
         return empMapper.countEmpGenderData();
     }
 
+
     @Override
-    public ClassOption getClazzStuData() {
-        List<Map<String, Object>> list = studentMapper.countClazzStuData();
-        List<Object> clazzList = list.stream().map(map -> map.get("name")).toList();
-        List<Object> dataList = list.stream().map(map -> map.get("num")).toList();
+    public List<Map<String, Object>> getStudentDegreeData() {
+        return studentMapper.countStudentDegreeData();
+    }
+
+    @Override
+    public ClassOption getStudentCountData() {
+        List<Map<String, Object>> list = studentMapper.countStudentCountData();
+        List<Object> clazzList = list.stream().map(map -> map.get("pos")).toList();
+        List<Object> dataList = list.stream().map(map -> map.get("value")).toList();
         return new ClassOption(clazzList, dataList);
     }
 }

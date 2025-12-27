@@ -39,14 +39,6 @@
             #{id}
         </foreach>
     </delete>
-    <select id="countClazzStuData" resultType="java.util.Map">
-        select
-            c.name,
-            count(s.id) value
-            from clazz c left join student s on c.id = s.clazz_id
-        group by c.id,c.name
-        order by value desc
-    </select>
     <select id="list" resultType="com.itheima.pojo.Student">
         select
         s.*, c.name as clazzName
@@ -68,5 +60,23 @@
     </select>
     <select id="getById" resultType="com.itheima.pojo.Student">
         select * from student s where s.id = #{id}
+    </select>
+    <select id="countStudentDegreeData" resultType="java.util.Map">
+        select
+            (case
+            <!-- 学历(1:初中,2:高中,3:大专,4:本科,5:硕士,6:博士) -->
+                when degree=1 then '初中'
+                when degree=2 then '高中'
+                when degree=3 then '大专'
+                when degree=4 then '本科'
+                when degree=5 then '硕士'
+                when degree=6 then '博士'
+                else '其他' end) name,
+            count(id) value
+        from student
+        group by degree
+    </select>
+    <select id="countStudentCountData" resultType="java.util.Map">
+        select c.name pos,count(1) value from student s left join clazz c on s.clazz_id = c.id group by c.name;
     </select>
 </mapper>
