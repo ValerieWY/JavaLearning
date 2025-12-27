@@ -3,7 +3,6 @@ package com.itheima.exception;
 
 import com.itheima.pojo.Result;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.core.annotation.Order;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -35,9 +34,16 @@ public class GlobalExceptionHandler {
 
     // 部门非空异常：
     @ExceptionHandler(DeptNotEmptyException.class)
-    @Order(1) // 确保这个处理器优先于通用的 ExceptionHandler
+//    @Order(1) // 确保这个处理器优先于通用的 ExceptionHandler
     public Result handleDeptNotEmptyException(DeptNotEmptyException e) {
         log.warn("部门删除校验失败: {}", e.getMessage()); // 使用 warn 级别可能更合适
         return Result.error(e.getMessage()); // 直接返回异常中的消息
+    }
+
+    // 班级非空异常：
+    @ExceptionHandler(ClassNotEmptyException.class)
+    public Result handleClassNotEmptyException(ClassNotEmptyException e) {
+        log.warn("班级删除校验失败: {}", e.getMessage());
+        return Result.error(e.getMessage());
     }
 }

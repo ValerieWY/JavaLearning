@@ -22,4 +22,6 @@ public interface ClazzMapper {
     void updateById(Clazz clazz);
 
     List<Clazz> listAllClazz();
+
+    int getStudentCountByClazzId(Integer id);
 }

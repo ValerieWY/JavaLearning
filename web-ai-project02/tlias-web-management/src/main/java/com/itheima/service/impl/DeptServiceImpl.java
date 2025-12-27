@@ -1,5 +1,6 @@
 package com.itheima.service.impl;
 
+import com.itheima.exception.DeptNotEmptyException;
 import com.itheima.mapper.DeptMapper;
 import com.itheima.pojo.Dept;
 import com.itheima.service.DeptService;
@@ -24,6 +25,10 @@ public class DeptServiceImpl implements DeptService {
 
     @Override
     public void deleteById(Integer id) {
+        // 删除部门之前，先判断部门下是否有员工
+        if (deptMapper.getCountByDeptId(id) > 0) {
+            throw new DeptNotEmptyException("对不起, 该部门下有员工, 不能直接删除");
+        }
         deptMapper.deleteById(id);
     }
 

@@ -2,6 +2,7 @@ package com.itheima.service.impl;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.itheima.exception.ClassNotEmptyException;
 import com.itheima.mapper.ClazzMapper;
 import com.itheima.pojo.Clazz;
 import com.itheima.pojo.ClazzQueryParam;
@@ -42,6 +43,9 @@ public class ClazzServiceImpl implements ClazzService {
     @Override
     public void deleteById(Integer id) {
         // 如果班级下有学生，提示错误信息："对不起, 该班级下有学生, 不能直接删除"。
+        if (clazzMapper.getStudentCountByClazzId(id) > 0) {
+            throw new ClassNotEmptyException("对不起, 该班级下有学生, 不能直接删除");
+        }
         clazzMapper.deleteById(id);
     }
 
