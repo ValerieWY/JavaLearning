@@ -44,6 +44,9 @@ public interface EmpMapper {
     // 统计员工职位人数
     List<Map<String, Object>> countEmpJobData();
 
+    @MapKey("name")
+    List<Map<String, Object>> countEmpGenderData();
+
     // 条件查询
 /*    select e.*, d.name deptName from emp e left join dept d on e.dept_id = d.id
     where e.name like '%欣%' and e.gender = 1 and e.entry_date between '2010-01-01' and '2020-01-01'
