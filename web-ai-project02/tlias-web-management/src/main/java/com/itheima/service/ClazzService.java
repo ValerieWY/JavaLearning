@@ -7,4 +7,5 @@ import com.itheima.pojo.PageResult;
 public interface ClazzService {
     PageResult<Clazz> list(ClazzQueryParam clazzQueryParam);
 
+    void deleteById(Integer id);
 }

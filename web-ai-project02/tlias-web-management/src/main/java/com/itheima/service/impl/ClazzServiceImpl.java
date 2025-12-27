@@ -33,4 +33,9 @@ public class ClazzServiceImpl implements ClazzService {
         return new PageResult<Clazz>(p.getTotal(), p.getResult());
         // long List<E> ，刚好符合PageResult需要的类型 Long 和 List<T>
     }
+
+    @Override
+    public void deleteById(Integer id) {
+        clazzMapper.deleteById(id);
+    }
 }
