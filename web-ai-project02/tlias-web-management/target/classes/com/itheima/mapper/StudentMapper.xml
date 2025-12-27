@@ -7,6 +7,32 @@
         insert into student (name,no,clazz_id,gender,phone,id_card,is_college, degree,address,graduation_Date,violation_count,violation_score,update_time)
         values (#{name},#{no},#{clazzId},#{gender},#{phone},#{idCard},#{isCollege},#{degree},#{address},#{graduationDate},#{violationCount},#{violationScore},#{updateTime})
     </insert>
+    <update id="updateById">
+        update student
+        <!-- 动态sql优化 -->
+        <set>
+            <if test="name!=null and name!=''">name = #{name},</if>
+            <if test="no!=null and no!=''">no = #{no},</if>
+            <if test="clazzId!=null">clazz_id = #{clazzId},</if>
+            <if test="gender!=null">gender = #{gender},</if>
+            <if test="phone!=null and phone!=''">phone = #{phone},</if>
+            <if test="idCard!=null and idCard!=''">id_card = #{idCard},</if>
+            <if test="isCollege!=null">is_college = #{isCollege},</if>
+            <if test="degree!=null">degree = #{degree},</if>
+            <if test="address!=null and address!=''">address = #{address},</if>
+            <if test="graduationDate!=null">graduation_Date = #{graduationDate},</if>
+            <if test="violationCount!=null">violation_count = #{violationCount},</if>
+            <if test="violationScore!=null">violation_score = #{violationScore},</if>
+            <if test="updateTime!=null">update_time = #{updateTime}</if>
+        </set>
+        where id = #{id}
+    </update>
+    <update id="updateViolation">
+        update student
+        set violation_count = violation_count + 1,
+        violation_score = violation_score + #{score}
+        where id = #{id}
+    </update>
     <delete id="deleteByIds">
         delete from student where id in
         <foreach item="id" collection="list" separator="," open="(" close=")">
@@ -23,10 +49,9 @@
     </select>
     <select id="list" resultType="com.itheima.pojo.Student">
         select
-            s.name, s.no, c.name as clazzName , s.gender, s.phone,
-            s.degree , s.violation_count, s.violation_score,s.update_time
-        from student s left join clazz c
-        on s.clazz_id = c.id
+        s.*, c.name as clazzName
+        from student s
+        left join clazz c on s.clazz_id = c.id
         <where>
             <!--    动态SQL    -->
             <if test="name!=null and name!=''">
@@ -38,6 +63,10 @@
             <if test="classId!=null">
                 and s.clazz_id = #{classId}
             </if>
-        </where>order by c.update_time desc
+        </where> order by c.update_time desc
+
+    </select>
+    <select id="getById" resultType="com.itheima.pojo.Student">
+        select * from student s where s.id = #{id}
     </select>
 </mapper>

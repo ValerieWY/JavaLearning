@@ -12,4 +12,10 @@ public interface StudentService {
     void delete(List<Integer> ids);
 
     void save(Student student);
+
+    Student getInfo(Integer id);
+
+    void update(Student student);
+
+    void updateViolation(Integer id, Short score);
 }

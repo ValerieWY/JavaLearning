@@ -47,4 +47,21 @@ public class StudentServiceImpl implements StudentService {
         student.setViolationScore((short)0);
         studentMapper.insert(student);
     }
+
+    @Override
+    public Student getInfo(Integer id) {
+
+        return studentMapper.getById(id);
+    }
+
+    @Override
+    public void update(Student student) {
+        student.setUpdateTime(LocalDateTime.now());
+        studentMapper.updateById(student);
+    }
+
+    @Override
+    public void updateViolation(Integer id, Short score) {
+        studentMapper.updateViolation(id, score);
+    }
 }

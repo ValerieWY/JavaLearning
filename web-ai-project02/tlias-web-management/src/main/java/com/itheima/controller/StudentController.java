@@ -39,4 +39,25 @@ public class StudentController {
         studentService.save(student);
         return Result.success();
     }
+
+    @GetMapping("/{id}")
+    public Result getInfo(@PathVariable Integer id) {
+        log.info("根据ID查学员：{}", id);
+        Student student = studentService.getInfo(id);
+        return Result.success(student);
+    }
+
+    @PutMapping
+    public Result update(@RequestBody Student student) {
+        log.info("修改员工信息, 参数: {}", student);
+        studentService.update(student);
+        return Result.success();
+    }
+
+    @PutMapping("/violation/{id}/{score}")
+    public Result updateViolation(@PathVariable Integer id, @PathVariable Short score) {
+        log.info("修改员工信息, 参数: {}, {}", id, score);
+        studentService.updateViolation(id, score);
+        return Result.success();
+    }
 }
