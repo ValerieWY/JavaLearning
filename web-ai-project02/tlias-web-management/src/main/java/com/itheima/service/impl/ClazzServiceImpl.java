@@ -60,5 +60,10 @@ public class ClazzServiceImpl implements ClazzService {
 
     }
 
+    @Override
+    public List<Clazz> listAll() {
+        return clazzMapper.listAllClazz();
+    }
+
 
 }

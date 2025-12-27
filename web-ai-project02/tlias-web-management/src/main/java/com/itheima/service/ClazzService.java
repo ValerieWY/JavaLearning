@@ -4,6 +4,8 @@ import com.itheima.pojo.Clazz;
 import com.itheima.pojo.ClazzQueryParam;
 import com.itheima.pojo.PageResult;
 
+import java.util.List;
+
 public interface ClazzService {
     PageResult<Clazz> list(ClazzQueryParam clazzQueryParam);
 
@@ -14,4 +16,6 @@ public interface ClazzService {
     Clazz getInfo(Integer id);
 
     void update(Clazz clazz);
+
+    List<Clazz> listAll();
 }
