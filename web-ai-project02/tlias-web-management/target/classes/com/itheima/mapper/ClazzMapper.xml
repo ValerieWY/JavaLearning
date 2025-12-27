@@ -54,4 +54,7 @@
     <select id="listAllClazz" resultType="com.itheima.pojo.Clazz">
         select * from clazz
     </select>
+    <select id="getStudentCountByClazzId" resultType="java.lang.Integer">
+        select count(*) from student where clazz_id=#{id}
+    </select>
 </mapper>

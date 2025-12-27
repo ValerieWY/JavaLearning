@@ -9,7 +9,7 @@ import java.util.List;
 
 @Mapper
 public interface ClazzMapper {
-    public List<Clazz> list(ClazzQueryParam clazzQueryParam);
+    List<Clazz> list(ClazzQueryParam clazzQueryParam);
 
     void deleteById(Integer id);
 
