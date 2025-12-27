@@ -1,5 +1,6 @@
 package com.itheima.controller;
 
+import com.itheima.pojo.ClassOption;
 import com.itheima.pojo.JobOption;
 import com.itheima.pojo.Result;
 import com.itheima.service.ReportService;
@@ -33,6 +34,14 @@ public class ReportController {
         log.info("统计员工性别数据");
         List<Map<String,Object>> genderList = reportService.getEmpGenderData();
         return Result.success(genderList);
+    }
+
+//    班级人数统计
+    @GetMapping("/studentCountData")
+    public Result getClazzStuData() {
+        log.info("班级人数统计");
+        ClassOption classOption = reportService.getClazzStuData();
+        return Result.success(classOption);
     }
 
 

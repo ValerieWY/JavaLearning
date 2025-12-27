@@ -51,4 +51,7 @@
     <select id="getById" resultType="com.itheima.pojo.Clazz">
         select * from clazz c where c.id = #{id}
     </select>
+    <select id="listAllClazz" resultType="com.itheima.pojo.Clazz">
+        select * from clazz
+    </select>
 </mapper>

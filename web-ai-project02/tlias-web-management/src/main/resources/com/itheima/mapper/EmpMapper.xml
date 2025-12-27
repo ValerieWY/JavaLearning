@@ -119,4 +119,5 @@
     <select id="listAll" resultType="com.itheima.pojo.Emp">
         select * from emp
     </select>
+
 </mapper>

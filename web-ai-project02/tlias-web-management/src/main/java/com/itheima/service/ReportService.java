@@ -1,5 +1,6 @@
 package com.itheima.service;
 
+import com.itheima.pojo.ClassOption;
 import com.itheima.pojo.JobOption;
 
 import java.util.List;
@@ -9,4 +10,6 @@ public interface ReportService {
     JobOption getEmpJobData();
 
     List<Map<String, Object>> getEmpGenderData();
+
+    ClassOption getClazzStuData();
 }

@@ -7,6 +7,7 @@ import com.itheima.pojo.Clazz;
 import com.itheima.pojo.ClazzQueryParam;
 import com.itheima.pojo.PageResult;
 import com.itheima.service.ClazzService;
+import com.itheima.service.ReportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +19,9 @@ public class ClazzServiceImpl implements ClazzService {
 
     @Autowired
     private ClazzMapper clazzMapper;
+
+    @Autowired
+    private ReportService reportService;
 
     @Override
     public PageResult<Clazz> list(ClazzQueryParam clazzQueryParam) {
@@ -37,6 +41,7 @@ public class ClazzServiceImpl implements ClazzService {
 
     @Override
     public void deleteById(Integer id) {
+        // 如果班级下有学生，提示错误信息："对不起, 该班级下有学生, 不能直接删除"。
         clazzMapper.deleteById(id);
     }
 
