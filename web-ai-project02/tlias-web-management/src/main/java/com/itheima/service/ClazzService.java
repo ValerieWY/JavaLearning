@@ -12,4 +12,6 @@ public interface ClazzService {
     void save(Clazz clazz);
 
     Clazz getInfo(Integer id);
+
+    void update(Clazz clazz);
 }

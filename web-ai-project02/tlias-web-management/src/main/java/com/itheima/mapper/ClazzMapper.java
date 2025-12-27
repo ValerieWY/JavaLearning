@@ -18,4 +18,6 @@ public interface ClazzMapper {
     void insert(Clazz clazz);
 
     Clazz getById(Integer id);
+
+    void updateById(Clazz clazz);
 }
