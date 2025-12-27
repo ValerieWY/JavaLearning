@@ -116,6 +116,7 @@ public class EmpServiceImpl implements EmpService {
         // 获取员工ID：不能直接写emp.getId()，因为前面定义批量删除方法时，这里的参数是个List<Integer>，要用Arrays.asList()转换成List<Integer>
         empExprMapper.deleteByEmpIds(Arrays.asList(emp.getId())); // 删除工作经历
         List<EmpExpr> exprList = emp.getExprList();     // 添加工作经历
+//        int i = 1/0;
         if(!CollectionUtils.isEmpty(exprList)) {
             exprList.forEach(expr -> expr.setEmpId(emp.getId()));
             empExprMapper.insertBatch(exprList);
