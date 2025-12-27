@@ -32,4 +32,11 @@ public class ClazzController {
         return Result.success();
     }
 
+    @PostMapping
+    public Result save(@RequestBody Clazz clazz) {
+        log.info("添加班级，参数：{}", clazz);
+        clazzService.save(clazz);
+        return Result.success();
+    }
+
 }
